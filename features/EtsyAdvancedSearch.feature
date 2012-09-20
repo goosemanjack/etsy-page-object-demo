@@ -5,18 +5,16 @@
 
   Scenario Outline: Advanced Search for items in various categories that exist and don't exist
     Given I am searching on Etsy.com
-    When I specify the <Sub Category> sub category
-    And I search for <Search Term>
+    When I search for <Search Term>
     Then I should see <Search Results> search results for <Search Term>
   Examples:
-    | Sub Category | Search Term  | Search Results |
-    | Knitting     | 'hat'        | some           |
-    | Jewelry      | 'necklace'   | some           |
-    | Jewelry      | 'specdriver' | no             |
+    | Search Term  | Search Results |
+    | 'hat'        | some           |
+    | 'necklace'   | some           |
+    | 'specdriver' | no             |
 
   Scenario: Misspelling a word corrects search automatically
     Given I am searching on Etsy.com
-    When I specify the Knitting sub category
     And I search for 'scarlf'
     Then I should see some search results for 'scarf'
     And I should see that the search was for 'scarf' instead of 'scarlf'

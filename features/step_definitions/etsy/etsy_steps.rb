@@ -17,12 +17,6 @@ Given /^that the cart is empty$/ do
   end
 end
 
-When /^I specify the (.+) sub category$/ do |sub_category|
-  on EtsyAdvancedSearchPage do |page|
-    page.sub_category = sub_category
-  end
-end
-
 When /^I search for '(.+)'$/ do |search_term|
   on EtsyAdvancedSearchPage do |page| page.search_for search_term end
 end
@@ -43,7 +37,7 @@ end
 
 Then /^I should see some search results for '(.+)'$/ do |search_term|
   on EtsySearchResultsPage do |page|
-    page.search_results.should =~ /\d+,?\d* items? for #{search_term}/
+    page.search_results.should =~ /^#{search_term}\d*,?\d+,?\d* items?$/
     page.search_results.should_not =~ /No results for #{search_term}\./
   end
 end
@@ -51,7 +45,7 @@ end
 Then /^I should see no search results for '(.+)'$/ do |search_term|
   on EtsySearchResultsPage do |page|
     page.search_results.should =~ /No results for #{search_term}\./
-    page.search_results.should_not =~ /\d+,?\d* items for #{search_term}/
+    page.search_results.should_not =~ /^#{search_term}\d*,?\d+,?\d* items?$/
   end
 end
 
